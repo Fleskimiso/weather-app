@@ -1,30 +1,42 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="navigationBar" id="nav">
+    <div>
+      <router-link class="navbar-item is-primary" to="/today"
+        >Prognoza na teraz</router-link
+      >
+    </div>
+    <div>
+      <router-link to="/forecast" class="navbar-item is-primary"
+        >Jutrzejsza prognoza pogody</router-link
+      >
+    </div>
   </div>
   <router-view />
 </template>
 
+<script>
+import { onMounted } from "vue";
+import { useStore } from "vuex";
+
+export default {
+  setup() {
+    const store = useStore();
+
+    onMounted(() => {
+      if (store.state.currentWeather === null) {
+        store.dispatch("loadCurrentWeather");
+      }
+    });
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import url("../node_modules/bulma/css/bulma.css");
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.navigationBar {
+  display: flex;
+  background: darkgrey;
+  flex-direction: row;
 }
 </style>
