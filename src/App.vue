@@ -1,20 +1,32 @@
 <template>
   <div class="navigationBar" id="nav">
     <div>
-      <router-link class="navbar-item is-primary" to="/today"
+      <router-link
+        class="navbar-item is-primary is-clickable is-size-7-mobile"
+        to="/today"
         >Prognoza na teraz</router-link
       >
     </div>
     <div>
-      <router-link to="/forecast" class="navbar-item is-primary"
+      <router-link
+        to="/forecast"
+        class="navbar-item is-primary is-clickable is-size-7-mobile"
         >Jutrzejsza prognoza pogody</router-link
       >
+    </div>
+    <div>
+      <router-link
+        to="/radar"
+        class="navbar-item is-primary is-clickable is-size-7-mobile"
+      >
+        Radar
+      </router-link>
     </div>
   </div>
   <router-view />
 
   <div>
-    {{message}}
+    {{ message }}
   </div>
 </template>
 
@@ -32,8 +44,8 @@ export default {
       }
     });
     return {
-      message: store.state.errorMessage
-    }
+      message: store.state.errorMessage,
+    };
   },
 };
 </script>

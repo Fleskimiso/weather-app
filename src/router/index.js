@@ -5,7 +5,7 @@ const routes = [
     path: "/today",
     name: "Today",
     component: () =>
-    import(/* webpackChunkName: "about" */ "../views/TodayWeather.vue"),
+      import(/* webpackChunkName: "about" */ "../views/TodayWeather.vue"),
   },
   {
     path: "/forecast",
@@ -15,6 +15,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Forecast.vue"),
+  },
+  {
+    path: "/radar",
+    name: "Radar",
+    component: () => import("../views/Radar.vue"),
   },
 ];
 

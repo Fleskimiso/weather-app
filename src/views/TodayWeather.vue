@@ -1,22 +1,40 @@
 <template>
-  <div>Pogoda na dziś</div>
-  <div v-if="store.state.currentWeather">
-    <div>Czas: {{ store.state.currentWeather.location.localtime }}</div>
+  <div class="has-text-centered has-text-black pb-3">Pogoda na dziś</div>
+  <div
+    class="is-flex is-flex-direction-row is-justify-content-center"
+    v-if="store.state.currentWeather"
+  >
+    <div class="has-text-left">
+      <div>Czas: {{ store.state.currentWeather.location.localtime }}</div>
 
-    <div>
-      <div>{{ store.state.currentWeather.current.condition.text }}</div>
-      <img :src="store.state.currentWeather.current.condition.icon" alt="" />
-    </div>
+      <div
+        class="
+          is-flex
+          is-flex-direction-row
+          is-justify-content-center
+          is-align-items-center
+        "
+      >
+        <div>{{ store.state.currentWeather.current.condition.text }}</div>
+        <img :src="store.state.currentWeather.current.condition.icon" alt="" />
+      </div>
 
-    <div>
-      Temperatura: {{ store.state.currentWeather.current.temp_c }} stopni
-      Celsjusza
-    </div>
-    <div>Zachmurzenie: {{ store.state.currentWeather.current.cloud }} %</div>
-    <div>Wilgotność: {{ store.state.currentWeather.current.humidity }} %</div>
-    <div>Wiatr: {{ store.state.currentWeather.current.wind_kph }} Km/H</div>
-    <div>
-      Kierunek wiatru: {{ store.state.currentWeather.current.wind_dir }}
+      <div class="has-text-weight-bold">
+        Temperatura: {{ store.state.currentWeather.current.temp_c }} stopni
+        Celsjusza
+      </div>
+      <div class="has-text-weight-bold">
+        Zachmurzenie: {{ store.state.currentWeather.current.cloud }} %
+      </div>
+      <div class="has-text-weight-bold">
+        Wilgotność: {{ store.state.currentWeather.current.humidity }} %
+      </div>
+      <div class="has-text-weight-bold">
+        Wiatr: {{ store.state.currentWeather.current.wind_kph }} Km/H
+      </div>
+      <div class="has-text-weight-bold">
+        Kierunek wiatru: {{ store.state.currentWeather.current.wind_dir }}
+      </div>
     </div>
   </div>
   <div v-else>Czekanie na dane...</div>
