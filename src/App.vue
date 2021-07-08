@@ -12,6 +12,10 @@
     </div>
   </div>
   <router-view />
+
+  <div>
+    {{message}}
+  </div>
 </template>
 
 <script>
@@ -27,6 +31,9 @@ export default {
         store.dispatch("loadCurrentWeather");
       }
     });
+    return {
+      message: store.state.errorMessage
+    }
   },
 };
 </script>

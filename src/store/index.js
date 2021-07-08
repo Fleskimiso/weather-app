@@ -29,6 +29,7 @@ export default createStore({
           "&days=2&aqi=no&alerts=no"
       );
       if (response.status === 200) {
+        console.log("got data succesfully");
         this.state.forecastData = await response.json();
       } else {
         this.state.errorMessage = `Couldn't get data from the api. status:${response.status} statusText:${response.statusText} `;

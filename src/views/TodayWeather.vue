@@ -1,39 +1,41 @@
 <template>
-  <div >Pogoda na dziś</div>
-  <div>
-    <div>Czas: {{ time }}</div>
+  <div>Pogoda na dziś</div>
+  <div v-if="store.state.currentWeather">
+    <div>Czas: {{ store.state.currentWeather.location.localtime }}</div>
 
     <div>
-      <div>{{ conditionText }}</div>
-      <img :src="conditionIconUrl" alt="" />
+      <div>{{ store.state.currentWeather.current.condition.text }}</div>
+      <img :src="store.state.currentWeather.current.condition.icon" alt="" />
     </div>
 
-    <div>Temperatura: {{ temperaturaC }} stopni Celsjusza</div>
-    <div>Zachmurzenie: {{ cloudsPercent }} %</div>
-    <div>Wilgotność: {{ humidityPercent }} %</div>
-    <div>Wiatr: {{ windKPH }} Km/H, Kierunek: {{ windDirection }}</div>
+    <div>
+      Temperatura: {{ store.state.currentWeather.current.temp_c }} stopni
+      Celsjusza
+    </div>
+    <div>Zachmurzenie: {{ store.state.currentWeather.current.cloud }} %</div>
+    <div>Wilgotność: {{ store.state.currentWeather.current.humidity }} %</div>
+    <div>Wiatr: {{ store.state.currentWeather.current.wind_kph }} Km/H</div>
+    <div>
+      Kierunek wiatru: {{ store.state.currentWeather.current.wind_dir }}
+    </div>
   </div>
+  <div v-else>Czekanie na dane...</div>
 </template>
 
 <script>
 import { useStore } from "vuex";
+import { ref, onMounted } from "vue";
 
 export default {
   setup() {
-    const store = useStore();
-    if (store.state.currentWeather === null) {
-      store.dispatch("loadCurrentWeather");
-    }
-
+    const store = ref(useStore());
+    onMounted(() => {
+      if (store.value.state.currentWeather === null) {
+        store.value.dispatch("loadCurrentWeather");
+      }
+    });
     return {
-      time: store.state.currentWeather.location.localtime,
-      temperaturaC: store.state.currentWeather.current.temp_c,
-      humidityPercent: store.state.currentWeather.current.humidity,
-      cloudsPercent: store.state.currentWeather.current.cloud,
-      conditionText: store.state.currentWeather.current.condition.text,
-      conditionIconUrl: store.state.currentWeather.current.condition.icon,
-      windKPH: store.state.currentWeather.current.wind_kph,
-      windDirection: store.state.currentWeather.current.wind_dir,
+      store: store.value,
     };
   },
 };
