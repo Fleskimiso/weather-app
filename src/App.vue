@@ -33,15 +33,18 @@
 <script>
 import { onMounted } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     onMounted(() => {
       if (store.state.currentWeather === null) {
         store.dispatch("loadCurrentWeather");
       }
+      router.addRoute("Today");
     });
     return {
       message: store.state.errorMessage,
